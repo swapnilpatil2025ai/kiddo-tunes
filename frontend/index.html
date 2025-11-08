@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiddo Tunes</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Kiddo Tunes</h1>
+    <div class="header-actions">
+      <button id="toggleTheme" aria-label="Toggle theme">🌓</button>
+      <button id="openSettings" aria-label="Open Settings">⚙️</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="break-banner" id="breakBanner" hidden>
+      <p>👀 Eye break time! Look 20 feet away for 20 seconds. <button id="dismissBreak">Okay</button></p>
+    </section>
+
+    <section class="tiles" id="favoritesGrid" aria-label="Favorites"></section>
+
+    <section class="search-panel" id="searchPanel" hidden>
+      <div class="parent-gate" id="parentGate">
+        <p>Parent Access: Solve 3 + 4 = ?</p>
+        <input type="number" id="gateAnswer" inputmode="numeric" aria-label="Parent answer" />
+        <button id="gateSubmit">Unlock Search</button>
+        <p class="hint">Search is locked by default to keep things safe.</p>
+      </div>
+
+      <div class="search-area" id="searchArea" hidden>
+        <div class="search-row">
+          <input id="searchInput" type="search" placeholder="Search kids songs..." aria-label="Search" />
+          <button id="searchBtn" aria-label="Run search">🔍</button>
+        </div>
+        <div class="filters">
+          <label><input type="checkbox" id="strictMode" checked /> Strict (kids-safe & whitelisted)</label>
+          <label><input type="checkbox" id="whitelistOnly" /> Whitelist channels only</label>
+        </div>
+        <div id="results" class="results" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="player" id="playerSection" hidden>
+      <div class="player-frame">
+        <iframe id="player" width="560" height="315" frameborder="0" allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+        </iframe>
+      </div>
+      <div class="player-controls">
+        <button id="closePlayer">Close</button>
+        <button id="prevFav">◀ Prev</button>
+        <button id="nextFav">Next ▶</button>
+        <button id="toggleAutoplay" aria-pressed="false">Autoplay: Off</button>
+        <div class="timer">
+          <label for="sessionMins">Session (min):</label>
+          <select id="sessionMins">
+            <option>10</option><option selected>20</option><option>30</option>
+          </select>
+          <button id="startTimer">Start Timer</button>
+          <span id="timeLeft" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="games" id="gamesSection">
+      <h2>🧠 Mini Games</h2>
+      <div class="game-cards">
+        <button class="game-card" id="memoryGameBtn">Memory Match</button>
+        <button class="game-card" id="patternGameBtn">Pattern Tap</button>
+      </div>
+      <div id="gameArea"></div>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <form method="dialog">
+      <h3>Settings</h3>
+      <label>
+        Allowed Channels (comma-separated IDs):
+        <textarea id="allowedChannels" rows="3" placeholder="UCM0yTZfR7fYtqz6G8lLTB7A"></textarea>
+      </label>
+      <label>
+        Disable Autoplay
+        <input type="checkbox" id="disableAutoplay"/>
+      </label>
+      <menu>
+        <button value="cancel">Close</button>
+        <button id="saveSettings" value="default">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer class="app-footer">
+    <button id="toggleSearch" aria-expanded="false">🔒 Search</button>
+    <button id="showGames">🎲 Games</button>
+  </footer>
+
+  <script>
+    window.__API_BASE__ = ""; // set to your backend origin in production, e.g., "https://your-api.onrender.com"
+  </script>
+  <script src="./data/favorites.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
